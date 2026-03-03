@@ -102,6 +102,9 @@ These apply in both full and standalone mode.
 - All paths relative via `@__DIR__` or `joinpath`; no hardcoded absolute paths
 - `mkpath()` called before writing to any directory
 - Grid construction deterministic (no random grid points unless seeded)
+- Thread-local RNGs when using `Threads.@threads` for simulation: `rngs[Threads.threadid()]`
+- Distributed workers seeded deterministically: `Random.seed!(myid() * 1000 + base_seed)`
+- Cluster entry point reads worker count from environment, not hardcoded
 
 **Stata:**
 - `set seed [number]` before any bootstrap, simulation, or random operation
@@ -184,6 +187,10 @@ Both languages:
 - Optimizer bounds: all parameters bounded to economically meaningful ranges
 - Crash recovery: estimation saves intermediate results periodically, not only at the end
 - `try-catch` around estimation with informative error messages
+- Cluster scripts: walltime check in estimation loop (`time_remaining() < buffer`)
+- Checkpointing every N evaluations or T minutes for runs > 1 hour
+- Checkpoint uses atomic write (tmp file + rename), not direct overwrite
+- Resume-from-checkpoint logic tested: `load_checkpoint` returns `nothing` if no file exists
 
 **Stata:**
 - `capture` around commands that might fail, with explicit handling after
@@ -240,13 +247,19 @@ Both languages:
 | Growing arrays in VFI loop (not pre-allocated) | -15 | Code Quality |
 | Moments in code do not match identification table | -15 | Strategic |
 | Targeted moment fit > 20% off | -15 | Strategic |
+| No checkpointing in cluster run > 1 hour | -15 | Code Quality |
 | No `Random.seed!` / `set seed` | -10 | Code Quality |
 | Missing JLD2 save for estimation results | -10 | Code Quality |
+| Shared RNG across threads | -10 | Code Quality |
+| No walltime awareness in SLURM script | -10 | Code Quality |
+| Wrong parallelism model (Distributed for VFI, Threads for restarts) | -10 | Code Quality |
 | `Any`-typed containers or untyped struct fields | -10 | Code Quality |
 | Counterfactual magnitude implausible | -10 | Strategic |
 | Missing figure/table output | -5 | Code Quality |
 | Missing moment CSV export from Stata | -5 | Code Quality |
 | No documentation headers | -5 | Code Quality |
+| Hardcoded worker count | -5 | Code Quality |
+| Checkpoint not atomic (no tmp + rename) | -5 | Code Quality |
 | Poor comment quality (WHAT not WHY) | -3 | Code Quality |
 | Output pollution (println in hot paths) | -3 | Code Quality |
 | Inconsistent naming or style | -2 | Code Quality |
@@ -270,6 +283,16 @@ Watch specifically for these in structural estimation code:
 | Full eigendecomposition of large transition matrix | Wasteful when only stationary dist needed | Iterative method or simulation |
 | Not committing `Manifest.toml` for Model/ | Different versions across machines | Pin the environment |
 | `include()` chain without module wrapper | No namespace isolation, name collisions | Wrap `Model/src/` in a module |
+| Hardcoded `addprocs(N)` | Breaks on different cluster configs | Read from `ENV["SLURM_NTASKS"]` or `nprocs()` |
+| No checkpointing in runs > 1 hour | Lose all progress when SLURM kills job | `save_checkpoint` every 50 evals or 15 min |
+| No walltime awareness in cluster script | Job killed mid-write, corrupted output | Check `time_remaining()` in estimation loop |
+| Shared RNG across `Threads.@threads` | Data race, non-reproducible simulation | Thread-local RNGs via `rngs[Threads.threadid()]` |
+| Missing `@everywhere` before worker functions | `UndefVarError` on Distributed workers | All functions/modules loaded with `@everywhere` |
+| Writing to `$HOME` on cluster nodes | Quota exceeded, job fails | Use `$SCRATCH` or `$TMPDIR` for output |
+| Loading full dataset on every Distributed worker | Unnecessary memory, slow serialisation | Send parameters only; workers load data locally |
+| `Threads.@threads` for embarrassingly parallel optimiser restarts | No benefit over Distributed; harder to scale to multi-node | Use `pmap` or `@distributed` for independent restarts |
+| `Distributed` for VFI inner loop | Serialisation overhead kills performance; needs shared array | Use `Threads.@threads`; value function must be shared memory |
+| Checkpoint written directly (no atomic rename) | Half-written file if killed mid-write | Write to `.tmp` then `mv` to final path 
 
 ## Known Stata Pitfalls (for moment computation scripts)
 
