@@ -25,6 +25,8 @@ PROTECTED_PATTERNS=(
   "strategy-memo-*.md"
   "referee-report-*.md"
   "quality-score-*.json"
+  "calibration-*.jl"
+  "Project.toml"
 )
 
 BASENAME=$(basename "$FILE")

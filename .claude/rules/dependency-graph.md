@@ -8,7 +8,7 @@
 |-------|----------|---------------|
 | Discovery | Research idea | Always — Librarian is persistent |
 | Strategy | At least one of: literature review OR data assessment | Yes — new data or literature can trigger re-strategy |
-| Execution (Code) | Approved strategy (Econometrician >= 80) | Yes — strategy revision triggers re-coding |
+| Execution (Code) | Approved strategy (structural-modeler >= 80) | Yes — strategy revision triggers re-coding |
 | Execution (Write) | Approved code (Debugger >= 80) | Yes — new results trigger rewriting |
 | Peer Review | Approved paper (Proofreader >= 80) + approved code | Yes — major revisions loop back |
 | Submission | Editor accepts + Verifier PASS + overall >= 95 | No — terminal |

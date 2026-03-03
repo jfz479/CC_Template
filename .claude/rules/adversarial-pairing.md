@@ -8,7 +8,7 @@
 |-----------------|-------------------|-----------------|
 | Librarian | Editor | Literature coverage, gaps, recency |
 | Explorer | Surveyor | Data feasibility, quality, identification fit |
-| Strategist | Econometrician | Identification validity, assumptions, robustness |
+| Strategist | structural-modeler | Model design, identification, computation |
 | Coder | Debugger | Code quality, reproducibility, code-strategy alignment |
 | Writer | Proofreader | Manuscript polish, LaTeX quality, hedging |
 | Storyteller | Discussant | Talk structure, audience calibration, visual quality |

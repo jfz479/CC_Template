@@ -1,6 +1,6 @@
 ---
-name: review-r
-description: Code review dispatching the Debugger agent in standalone mode (categories 4-12 only). Checks code quality, reproducibility, figure standards, and professional polish. Use for R, Stata, Python, or Julia scripts.
+name: review-julia
+description: Code review dispatching the Debugger agent in standalone mode (categories 4-12 only). Checks code quality, reproducibility, figure standards, and professional polish. Use for Julia, Stata, R or Matlab scripts.
 argument-hint: "[filename or 'all']"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 ---
@@ -9,14 +9,14 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 
 Run the code review protocol by dispatching the **Debugger** agent in standalone mode.
 
-In standalone mode, the Debugger runs **categories 4-12 only** (code quality). Categories 1-3 (strategic alignment) require a strategy memo and are only run within the pipeline or via `/econometrics-check`.
+In standalone mode, the Debugger runs **categories 4-12 only** (code quality). Categories 1-3 (strategic alignment) require a strategy memo and are only run within the pipeline or via `/model-check`.
 
 ## Workflow
 
 ### Step 1: Identify Scripts
 
 - If `$ARGUMENTS` is a specific file: review that file only
-- If `$ARGUMENTS` is `all`: review all scripts in `scripts/R/`, `scripts/stata/`, `scripts/python/`, `scripts/julia/`
+- If `$ARGUMENTS` is `all`: review all scripts in `scripts/julia/`, `scripts/stata/`, `scripts/R/`, `scripts/Matlab/`
 - If `$ARGUMENTS` is a directory: review all scripts in that directory
 
 ### Step 2: Launch Debugger Agent
@@ -31,7 +31,7 @@ Categories:
   6. Reproducibility (set.seed, relative paths, no hardcoded values)
   7. Function design (DRY, appropriate abstraction level)
   8. Figure quality (labels, dimensions, theme, transparency)
-  9. RDS pattern (saveRDS for all computed objects)
+  9. JLD2 pattern
   10. Comments (explain why, not what)
   11. Error handling (graceful failures, informative messages)
   12. Polish (consistent style, no dead code, clean namespace)
@@ -55,6 +55,6 @@ After all reviews complete:
 ## Principles
 
 - **Standalone mode = code quality only.** Strategic alignment (does the code match the design?) requires a strategy memo.
-- **Language-flexible.** Same categories apply to R, Stata, Python, Julia — adapt checks to language idioms.
+- **Language-flexible.** Same categories apply to Julia, Stata, R, Matlab — adapt checks to language idioms.
 - **Proportional severity.** A missing `set.seed()` is Major. A missing comment is Minor.
 - **Worker-critic separation.** The Debugger never fixes code — it only critiques.

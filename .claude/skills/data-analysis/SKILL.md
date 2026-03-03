@@ -21,7 +21,7 @@ Run an end-to-end data analysis by dispatching the **Coder** (implementer) and *
 1. Read `.claude/rules/domain-profile.md` for field conventions
 2. Read any strategy memo in `quality_reports/` (if analysis implements a pre-specified design)
 3. Check `CLAUDE.md` for language preference (R/Stata/Python/Julia)
-4. Scan existing scripts in `scripts/R/` (or `scripts/stata/`, etc.) for project patterns
+4. Scan existing scripts in `scripts/Julia/` (or `scripts/stata/`, etc.) for project patterns
 
 ### Step 2: Launch Coder Agent
 
@@ -40,9 +40,8 @@ Save scripts to scripts/R/ (or appropriate language directory).
 
 The Coder follows these principles:
 - **Script structure:** Header, setup, data loading, analysis, output, export
-- **Packages:** `fixest` for panel data, `modelsummary` for tables, `ggplot2` for figures
-- **Standard errors:** Cluster at appropriate level (match treatment assignment)
-- **Output:** `.tex` tables for LaTeX, `.pdf`/`.png` figures, `.rds` for intermediate objects
+- **Packages:** in Stata: eststo and estout N/A, in Julia: CairoMakie for figures. Own code over user-written packages. Ask permission if new package is proposed for installation.
+- **Output:** `.tex` tables for LaTeX (see Paper/main.tex and Paper/paper.sty for compatibility), `.pdf`/`.png` figures, `.rds` for intermediate objects
 - **No hardcoded paths.** All paths relative to repository root.
 
 ### Step 3: Launch Debugger Agent (Code Critic)
@@ -50,7 +49,7 @@ The Coder follows these principles:
 After Coder returns, delegate to the `debugger` agent:
 
 ```
-Prompt: Review the script(s) at scripts/R/[script_name].R.
+Prompt: Review the script(s) at scripts/Stata/[script_name].do.
 Run all 12 check categories:
   Strategic (1-3): code-strategy alignment, sanity checks, robustness sufficiency
   Code Quality (4-12): structure, console hygiene, reproducibility, functions,
@@ -78,35 +77,72 @@ Show the user:
 
 ## Script Structure Template
 
-```r
+```stata
+* ============================================================
+* [Descriptive Title]
+* Author: [from project context]
+* Purpose: [What this script does]
+* Inputs: [Data files]
+* Outputs: [Tables, CSV files]
+* ============================================================
+
+* 0. Setup ----
+clear all
+set more off
+set seed 42
+
+global root "/path/to/project"
+global data "${root}/Data"
+global tables "${root}/Tables"
+global figures "${root}/Figures"
+
+capture mkdir "${root}/Tables"
+capture mkdir "${root}/Figures"
+
+* 1. Data Loading ----
+
+* 2. Exploratory Analysis ----
+
+* 3. Main Analysis ----
+
+* 4. Tables ----
+
+* 5. Export ----
+```
+
+```julia
 # ============================================================
 # [Descriptive Title]
 # Author: [from project context]
 # Purpose: [What this script does]
 # Inputs: [Data files]
-# Outputs: [Figures, tables, RDS files]
+# Outputs: [Figures]
 # ============================================================
 
-# 0. Setup ----
-library(tidyverse)
-library(fixest)
-library(modelsummary)
+using CSV
+using DataFrames
+using CairoMakie
 
-set.seed(42)
+# Load results from Stata CSV
+results = CSV.read("Tables/[Name of csv file for figure].csv", DataFrame)
 
-dir.create("Tables", recursive = TRUE, showWarnings = FALSE)
-dir.create("Figures", recursive = TRUE, showWarnings = FALSE)
+# Example: create a simple bar plot of means
+fig = Figure(resolution=(800, 600))
+ax = Axis(fig[1, 1], 
+    xlabel="Variables", 
+    ylabel="Mean Value",
+    title="Summary Statistics from Stata Analysis")
 
-# 1. Data Loading ----
+variables = ["y", "x1", "x2"]
+means = results.y[1:3]  # Adjust based on your CSV structure
 
-# 2. Exploratory Analysis ----
+barplot!(ax, 1:length(variables), means, color=:steelblue)
+ax.xticks = (1:length(variables), variables)
 
-# 3. Main Analysis ----
-
-# 4. Tables and Figures ----
-
-# 5. Export ----
+save("Figures/results_plot.png", fig)
+fig
 ```
+
 
 ---
 

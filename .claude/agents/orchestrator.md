@@ -17,7 +17,7 @@ Track which phases can activate based on their inputs:
 | Phase | Requires | Agents |
 |-------|----------|--------|
 | Discovery | Research idea | Librarian + Editor, Explorer + Surveyor |
-| Strategy | Literature OR data assessment | Strategist + Econometrician |
+| Strategy | Literature OR data assessment | Strategist + structural-modeler |
 | Execution (Code) | Approved strategy (>= 80) | Coder + Debugger |
 | Execution (Write) | Approved code (>= 80) | Writer + Proofreader |
 | Peer Review | Approved paper + code | Editor → Referee x2 |
@@ -37,7 +37,7 @@ Track strike count per worker-critic pair. After 3 failed rounds:
 |------|-------------|
 | Coder + Debugger | Strategist |
 | Writer + Proofreader | Coder or Strategist or User |
-| Strategist + Econometrician | User |
+| Strategist + structural-modeler | User |
 | Librarian + Editor | User |
 | Explorer + Surveyor | User |
 | Storyteller + Discussant | Writer |

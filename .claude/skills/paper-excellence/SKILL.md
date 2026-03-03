@@ -1,6 +1,6 @@
 ---
 name: paper-excellence
-description: Multi-agent paper review dispatching Econometrician, Debugger, Proofreader, and Verifier in parallel. Computes weighted aggregate score per scoring-protocol.md. Use for comprehensive quality check before submission or major milestones.
+description: Multi-agent paper review dispatching structural-modeler, Debugger, Proofreader, and Verifier in parallel. Computes weighted aggregate score per scoring-protocol.md. Use for comprehensive quality check before submission or major milestones.
 disable-model-invocation: true
 argument-hint: "[paper .tex path OR 'all' for full project review]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task", "Bash"]
@@ -33,17 +33,17 @@ Before launching agents:
 
 Launch up to 4 agents simultaneously via Task tool:
 
-**Agent 1: Econometrician** (subagent_type: econometrician)
+**Agent 1: Structural Modeler ** (subagent_type: structural-modeler)
 ```
-Review [paper.tex] through all 4 phases: claim, design validity, inference, polish.
-Also check scripts in scripts/R/ for code-theory alignment.
-Save report to quality_reports/[file]_econometrics_review.md
+Review [paper.tex] through all 4 phases: model class, identification, computation, economics.
+Also check scripts in scripts/Julia/ for code-theory alignment.
+Save report to quality_reports/[file]_model_review.md
 ```
-**Weight:** Identification 25% of aggregate score.
+**Weight:** Model 25% of aggregate score.
 
 **Agent 2: Debugger** (subagent_type: general-purpose, with debugger agent instructions)
 ```
-Review all scripts in scripts/R/ for code quality and correctness.
+Review all scripts in scripts/Julia/ for code quality and correctness.
 Run categories 4-12 (code quality) plus categories 1-3 (strategic) if strategy memo exists.
 Save report to quality_reports/[script]_code_review.md
 ```
@@ -86,7 +86,7 @@ Overall = Σ (weight_k × score_k) for available components
 |-----------|--------|-------|
 | Literature | 10% | (skip if no lit review exists) |
 | Data | 10% | (skip if no data review exists) |
-| Identification | 25% | Econometrician |
+| Model | 25% | structural-modeler |
 | Code | 15% | Debugger |
 | Paper | 25% | Proofreader |
 | Polish | 10% | (from Proofreader writing quality subscore) |
@@ -104,7 +104,7 @@ If components are missing, renormalize weights over available components.
 ## Score Breakdown
 | Component | Weight | Score | Issues | Agent |
 |-----------|--------|-------|--------|-------|
-| Identification | 25% | XX | N | Econometrician |
+| Model | 25% | XX | N | structural-modeler |
 | Code | 15% | XX | N | Debugger |
 | Paper | 25% | XX | N | Proofreader |
 | Polish | 10% | XX | N | Proofreader |

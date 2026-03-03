@@ -13,7 +13,7 @@
     ↓
 /find-data → Data Assessment (Explorer + Surveyor)
     ↓
-/identify → Strategy Memo (Strategist + Econometrician)
+/identify → Strategy Memo (Strategist + structural-modeler)
     ↓
 /data-analysis → Scripts + Output (Coder + Debugger)
     ↓
@@ -56,8 +56,8 @@ Enter at any stage. Use `/new-project` for the full pipeline.
 ### Quality & Review
 | Command | Agents | What It Does |
 |---------|--------|-------------|
-| `/econometrics-check [file]` | Econometrician | 4-phase causal inference audit |
-| `/review-r [file]` | Debugger | Code quality review (standalone) |
+| `/model-check [file]` | structural-modeler | 4-phase causal inference audit |
+| `/review-julia [file]` | Debugger | Code quality review (standalone) |
 | `/proofread [file]` | Proofreader | 6-category manuscript review |
 | `/paper-excellence [file]` | 4 parallel | Multi-agent review + weighted score |
 | `/review-paper [file]` | 2 Referees + Editor | Simulated peer review |
@@ -107,7 +107,7 @@ Weighted aggregate: Literature 10% + Data 10% + Identification 25% + Code 15% + 
 ## I Ask You When
 
 - **Design forks:** "Option A vs. Option B. Which?"
-- **Identification choice:** "CS DiD vs. Sun-Abraham for this setting?"
+- **Solution algorithm choice:** "VFI, PFI, Colloation or different method for this setting?"
 - **Disagreement with referee:** "DISAGREE classification — please review"
 - **After 3 strikes:** "Coder and Debugger can't agree — your call"
 

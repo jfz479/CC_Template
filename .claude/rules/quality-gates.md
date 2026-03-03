@@ -36,6 +36,26 @@ The overall score is a weighted aggregate of component scores. At the submission
 | Minor | Overfull hbox 1-10pt | -1 |
 | Minor | Long lines (>100 chars) | -1 (EXCEPT math formulas) |
 
+## Julia Scripts (.jl in Model/ or scripts/julia/)
+
+| Severity | Issue | Deduction |
+|----------|-------|-----------|
+| Critical | Script does not run / module fails to load | -100 |
+| Critical | Type instability in VFI inner loop | -30 |
+| Critical | VFI does not converge (no convergence check) | -25 |
+| Critical | Hardcoded absolute paths | -20 |
+| Critical | NaN/Inf not guarded in log/division | -20 |
+| Major | No Random.seed! in simulation | -15 |
+| Major | Growing arrays inside VFI loop (not pre-allocated) | -15 |
+| Major | Any typed container or untyped struct field | -10 |
+| Major | Missing JLD2 save for estimation results | -10 |
+| Major | Figures not saved to Figures/ | -5 |
+| Major | Tables not saved to Tables/ | -5 |
+| Minor | No documentation header | -5 |
+| Minor | Inconsistent naming (mixed camelCase/snake_case) | -3 |
+| Minor | Dead code or commented-out blocks | -2 |
+
+
 ## R Scripts (.R)
 
 | Severity | Issue | Deduction |

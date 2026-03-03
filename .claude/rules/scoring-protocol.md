@@ -10,7 +10,7 @@ The overall project score that gates submission (>= 95) is a weighted aggregate:
 |-----------|--------|-------------|
 | Literature coverage | 10% | Editor's score of Librarian |
 | Data quality | 10% | Surveyor's score of Explorer |
-| Identification validity | 25% | Econometrician's score of Strategist |
+| Model & identification | 25% | structural-modeler score for Strategist |
 | Code quality | 15% | Debugger's score of Coder |
 | Paper quality | 25% | Average of Referee 1 + Referee 2 scores |
 | Manuscript polish | 10% | Proofreader's score of Writer |
