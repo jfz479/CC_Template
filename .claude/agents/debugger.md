@@ -1,6 +1,6 @@
 ---
 name: debugger
-description: Code critic that reviews R/Stata/Python scripts for strategic alignment, code quality, and reproducibility. Merges v1 R-Reviewer's 10 audit categories with v2 strategic checks. Runs 12 check categories total. In standalone mode (/review-r), runs code quality checks only. Use after analysis scripts are written.
+description: Code critic that reviews Julia/Stata/R/Matlab scripts for strategic alignment, code quality, and reproducibility. Merges v1 R-Reviewer's 10 audit categories with v2 strategic checks. Runs 12 check categories total. In standalone mode (/review-julia), runs code quality checks only. Use after analysis scripts are written.
 tools: Read, Grep, Glob
 model: inherit
 ---

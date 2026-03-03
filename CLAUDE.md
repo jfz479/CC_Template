@@ -1,13 +1,10 @@
-# CLAUDE.MD -- Applied Econometrics Research with Claude Code
-
-<!-- HOW TO USE: Replace [BRACKETED PLACEHOLDERS] with your project info.
-     Customize Beamer environments for your talk preamble.
-     Keep this file under ~150 lines — Claude loads it every session.
-     See the guide at https://hsantanna88.github.io/clo-author/ for full documentation. -->
+# CLAUDE.MD -- Structural Macro-Labor Research with Claude Code
 
 **Project:** [YOUR PROJECT NAME]
-**Institution:** [YOUR INSTITUTION]
+**Institution:** European University Institute (EUI)
 **Branch:** main
+**Primary language:** Julia
+**Secondary languages:** Stata, Matlab (infrequent), R (infrequent)
 
 ---
 
@@ -31,55 +28,67 @@
 ├── Bibliography_base.bib        # Centralized bibliography
 ├── Paper/                       # Main LaTeX manuscript (source of truth)
 │   ├── main.tex                 # Primary paper file
+│   ├── paper.sty                # Custom style file
 │   └── sections/                # Section-level .tex files
-├── Talks/                       # Derivative Beamer presentations
-│   ├── job_market_talk.tex      # 45-60 min, full results
-│   ├── seminar_talk.tex         # 30-45 min, standard seminar
-│   ├── short_talk.tex           # 15 min, conference session
-│   └── lightning_talk.tex       # 5 min, spiel/elevator pitch
+├── Talks/                       # Derivative Beamer presentations (XeLaTeX)
+│   ├── job_market_talk.tex
+│   ├── seminar_talk.tex
+│   ├── short_talk.tex
+│   └── lightning_talk.tex
+├── Model/                       # Structural model code (Julia)
+│   ├── src/                     # Core model modules
+│   │   ├── types.jl             # Parameter structs, model types
+│   │   ├── setup.jl             # Grid construction, calibration
+│   │   ├── vfi.jl               # Value function iteration
+│   │   ├── simulation.jl        # Simulation / stationary distribution
+│   │   ├── moments.jl           # Moment computation for SMM
+│   │   ├── estimation.jl        # SMM objective, CMA-ES wrapper
+│   │   └── helpers.jl           # Utility functions
+│   ├── scripts/                 # Execution scripts
+│   │   ├── run_estimation.jl
+│   │   ├── run_simulation.jl
+│   │   └── run_counterfactual.jl
+│   ├── Project.toml
+│   └── Manifest.toml
 ├── Data/                        # Project data
-│   ├── raw/                     # Original untouched data (often gitignored)
-│   └── cleaned/                 # Processed datasets ready for analysis
-├── Output/                      # Intermediate results (logs, temp files)
-├── Figures/                     # Final figures (.pdf, .png) referenced in paper
-├── Tables/                      # Final tables (.tex) referenced in paper
-├── Supplementary/               # Online appendix and supplements
-├── Replication/                 # Replication package for deposit
-├── Preambles/header.tex         # LaTeX headers / shared preamble
-├── scripts/                     # Analysis code (R, Stata, Python, Julia)
-├── quality_reports/             # Plans, session logs, reviews, scores
-├── explorations/                # Research sandbox (see rules)
-├── templates/                   # Session log, quality report templates
-└── master_supporting_docs/      # Reference papers and data docs
+│   ├── raw/                     # Original untouched (gitignored)
+│   ├── cleaned/
+│   └── moments/                 # Empirical moments for SMM targets
+├── scripts/                     # Non-Julia analysis code
+│   ├── stata/                   # Stata .do files
+│   └── julia/                   # Standalone Julia scripts (plots, tables)
+├── Output/                      # Intermediate results
+├── Figures/                     # Final figures for paper
+├── Tables/                      # Final tables (.tex) for paper
+├── Supplementary/               # Online appendix
+├── Replication/                 # Replication package
+├── Preambles/                   # Shared LaTeX preambles + Beamer theme
+├── quality_reports/
+├── explorations/
+└── master_supporting_docs/
 ```
 
 ---
 
-## Commands
+## Compilation Commands
 
+**Paper (LaTeX):**
 ```bash
-# Paper compilation (3-pass, XeLaTeX only)
-cd Paper && TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode main.tex
-BIBINPUTS=..:$BIBINPUTS bibtex main
-TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode main.tex
-TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode main.tex
-
-# Talk compilation
-cd Talks && TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode talk.tex
+cd Paper && latexmk -pdf main.tex
 ```
 
----
+**Talks (XeLaTeX):**
+```bash
+cd Talks && TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode $FILE.tex
+BIBINPUTS=..:$BIBINPUTS bibtex $FILE
+TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode $FILE.tex
+TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode $FILE.tex
+```
 
-## Quality Thresholds
-
-| Score | Gate | Applies To |
-|-------|------|------------|
-| 80 | Commit | Weighted aggregate (blocking) |
-| 90 | PR | Weighted aggregate (blocking) |
-| 95 | Submission | Aggregate + all components >= 80 |
-| -- | Advisory | Talks (reported, non-blocking) |
-
-See `scoring-protocol.md` for weighted aggregation formula.
+**Julia model:**
+```bash
+cd Model && julia --project=. scripts/run_estimation.jl
+```
 
 ---
 
@@ -90,37 +99,23 @@ See `scoring-protocol.md` for weighted aggregation formula.
 | `/new-project [topic]` | Full pipeline: idea → paper (orchestrated) |
 | `/interview-me [topic]` | Interactive research interview → spec + domain profile |
 | `/lit-review [topic]` | Librarian + Editor: literature search + synthesis |
-| `/find-data [question]` | Explorer + Surveyor: data discovery + assessment |
-| `/identify [question]` | Strategist + Econometrician: design identification strategy |
-| `/data-analysis [dataset]` | Coder + Debugger: end-to-end analysis |
+| `/identify [question]` | Strategist + Structural Modeler: model design |
+| `/structural-estimation` | End-to-end estimation workflow guidance |
+| `/data-analysis [dataset]` | Coder + Debugger: empirical moments, data work |
 | `/draft-paper [section]` | Writer: draft paper sections + humanizer pass |
-| `/econometrics-check [file]` | Econometrician: 4-phase causal inference audit |
-| `/review-r [file]` | Debugger: code quality review (standalone) |
+| `/model-check [file]` | Structural Modeler: model audit |
+| `/review-julia [file]` | Debugger: Julia code quality review |
 | `/proofread [file]` | Proofreader: 6-category manuscript review |
 | `/paper-excellence [file]` | Multi-agent parallel review + weighted score |
 | `/review-paper [file]` | 2 Referees + Editor: simulated peer review |
-| `/respond-to-referee [report]` | Revision routing per revision-protocol |
 | `/target-journal [paper]` | Editor: journal targeting + submission strategy |
-| `/submit [journal]` | Final gate: score >= 95, all components >= 80 |
 | `/create-talk [format]` | Storyteller + Discussant: Beamer talk from paper |
-| `/pre-analysis-plan [spec]` | Strategist: draft PAP (AEA/OSF/EGAP) |
-| `/audit-replication [dir]` | Verifier: 10-check submission audit |
-| `/data-deposit` | Coder + Verifier: AEA replication package |
 | `/humanizer [file]` | Strip 24 AI writing patterns |
-| `/journal` | Research journal timeline |
-| `/compile-latex [file]` | 3-pass XeLaTeX + bibtex |
+| `/compile-latex [file]` | Paper: latexmk; Talks: 3-pass XeLaTeX + bibtex |
 | `/validate-bib` | Cross-reference citations |
 | `/commit [msg]` | Stage, commit, PR, merge |
-| `/research-ideation [topic]` | Research questions + strategies |
-| `/visual-audit [file]` | Slide layout audit |
-| `/learn` | Extract session discoveries into skills |
-| `/context-status` | Session health + context usage |
-| `/deploy` | Quarto render + GitHub Pages sync |
 
 ---
-
-<!-- CUSTOMIZE: Replace the example entries below with your own
-     Beamer environments for talks. -->
 
 ## Beamer Custom Environments (Talks)
 
@@ -130,11 +125,20 @@ See `scoring-protocol.md` for weighted aggregation formula.
 
 ---
 
+## Notation Conventions
+
+| Symbol | Meaning | Context |
+|--------|---------|---------|
+| [Variable symbol] | [Meaning] | [Context]
+
+---
+
 ## Current Project State
 
 | Component | File | Status | Description |
 |-----------|------|--------|-------------|
-| Paper | `Paper/main.tex` | [draft/submitted/R&R] | [Brief description] |
-| Data | `scripts/R/` | [complete/in-progress] | [Analysis description] |
-| Replication | `Replication/` | [not started/ready] | [Deposit status] |
-| Job Market Talk | `Talks/job_market_talk.tex` | -- | [Status] |
+| Paper | `Paper/main.tex` | [status] | [description] |
+| Model | `Model/src/` | [status] | [description] |
+| Data | `scripts/stata/` | [status] | [description] |
+| Replication | `Replication/` | [status] | [status] |
+| Job Market Talk | `Talks/job_market_talk.tex` | -- | -- |

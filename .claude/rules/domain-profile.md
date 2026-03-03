@@ -1,100 +1,100 @@
 # Domain Profile
 
-<!--
-HOW TO USE: Fill this in manually OR let /interview-me generate it.
-All agents read this file to calibrate their field-specific behavior.
-Delete sections that don't apply. Add sections specific to your field.
--->
-
 ## Field
 
-**Primary:** [e.g., Health Economics, Labor Economics, Development, IO, Public Finance]
-**Adjacent subfields:** [e.g., Labor, Public, IO — fields whose methods and journals overlap]
+**Primary:** Macro-Labor Economics (structural)
+**Adjacent subfields:** Search-and-matching theory, firm dynamics, labor market policy evaluation, quantitative macroeconomics
 
 ---
 
 ## Target Journals (ranked by tier)
 
-<!-- The Editor uses this for journal selection. The Librarian prioritizes these in searches. -->
-
 | Tier | Journals |
 |------|----------|
-| Top-5 | AER, Econometrica, JPE, QJE, REStud |
-| Top field | [e.g., JHE, RAND JE, AEJ:EP, AEJ:Applied] |
-| Strong field | [e.g., Health Affairs, AJHE, JPubE, JHR] |
-| Specialty | [e.g., Medical Care, Health Services Research] |
+| Top-5 | Econometrica, AER, REStud, QJE, JPE |
+| Top field | AEJ:Macro, JEEA, Journal of Monetary Economics, IER, JoLE |
+| Strong field | Labour Economics, EER, Macroeconomic Dynamics, JEDC, QE |
+| Specialty | German Economic Review, IZA Journal of Labor Economics |
 
 ---
 
 ## Common Data Sources
 
-<!-- The Explorer prioritizes these. The Surveyor knows their quirks. -->
-
 | Dataset | Type | Access | Notes |
 |---------|------|--------|-------|
-| [e.g., CPS] | [survey/admin/panel] | [public/restricted] | [key strengths and limitations] |
+| IAB Establishment Panel | Panel survey | Restricted (IAB) | Employment, wages, STW; 2011-2019 |
+| SIAB | Admin panel | Restricted (IAB) | Wage histories; censored at ceiling |
+| Mikrozensus | Survey | Restricted (DESTATIS) | Education, search behavior |
+| PKuG-EAK / IEB | Admin | Restricted (IAB) | STW spells, employment biographies |
 
 ---
 
 ## Common Identification Strategies
 
-<!-- The Strategist considers these first. The Econometrician knows field-specific threats. -->
-
-| Strategy | Typical Application | Key Assumption to Defend |
-|----------|-------------------|------------------------|
-| [e.g., State-level DiD] | [Policy variation across states] | [Parallel trends in outcomes across treated/control states] |
+| Strategy | Application | Key Assumption |
+|----------|------------|----------------|
+| Structural estimation (SMM) | Firm dynamics, search models | Model specification, moment selection |
+| Calibration + counterfactual | Policy evaluation (STW) | Model captures relevant adjustment margins |
+| Value function iteration | Dynamic choice problems | Convergence, grid resolution |
 
 ---
 
 ## Field Conventions
 
-<!-- The Coder and Writer follow these. The Proofreader checks for them. -->
-
-- [e.g., Binary outcomes → report LPM alongside logit/probit marginal effects]
-- [e.g., Cost outcomes → log transform or GLM (Gamma, log link)]
-- [e.g., Clustering at state level for state-level policy variation]
-- [e.g., Always discuss moral hazard / adverse selection implications]
-- [e.g., Welfare analysis expected in top-5 submissions]
+- Structural models require explicit identification discussion: which moments pin down which parameters
+- Goodness-of-fit tables: targeted vs non-targeted moments
+- Policy counterfactuals should include transition dynamics, not just steady states
+- Welfare analysis expected: compensating variation or consumption equivalents
+- Computational details in online appendix: grids, convergence, algorithms
+- German institutional context must be documented: collective bargaining, working-time accounts, STW rules
+- For search models: report matching elasticity, v/u ratio, job-finding and separation rates
 
 ---
 
 ## Notation Conventions
 
-<!-- The Writer and Proofreader enforce these. -->
-
 | Symbol | Meaning | Anti-pattern |
 |--------|---------|-------------|
-| [e.g., $Y_{it}$] | [Outcome for individual i at time t] | [Don't use $y$ without subscripts] |
+| $z$ | Idiosyncratic productivity (AR(1)) | Not $a$ or $\epsilon$ |
+| $X$ | Permanent type | Normalize $E[X]=1$ |
+| $n$ | Employment (FTE) | FTE not headcount |
+| $h$ | Hours per worker, $h \in [0,1]$ | |
+| $\eta$ | Bargaining power | Not $\beta$ (discount factor) |
+| $\delta$ | Separation rate | Distinguish exogenous vs endogenous |
+| $\theta$ | Market tightness ($v/u$) | Equilibrium object |
 
 ---
 
 ## Seminal References
 
-<!-- The Librarian ensures these are cited when relevant. The Econometrician knows their methods. -->
-
 | Paper | Why It Matters |
 |-------|---------------|
-| [e.g., Finkelstein et al. (2012)] | [Oregon HIE — gold standard for insurance effects] |
+| Cooper, Haltiwanger, Willis (2007/2017) | Firm dynamics with non-convex adjustment costs |
+| Elsby and Michaels (2013) | Search-and-matching with heterogeneous firms |
+| Hopenhayn (1992) | Canonical firm dynamics entry/exit |
+| Stole and Zwiebel (1996) | Intrafirm bargaining |
+| Clementi and Palazzo (2016) | Random fixed costs for exit |
+| Menzio and Shi (2011) | Block recursive equilibrium, directed search |
 
 ---
 
 ## Field-Specific Referee Concerns
 
-<!-- The Econometrician and Referee agents watch for these. -->
-
-- [e.g., "Why not use the Oregon HIE?" — must address if studying insurance effects]
-- [e.g., "Selection into treatment" — always a concern in health care utilization studies]
-- [e.g., "Moral hazard vs adverse selection" — referees expect you to distinguish]
-- [e.g., "External validity" — Medicaid population ≠ general population]
+- "Is the model identified?" -- Jacobian or sensitivity analysis for parameter-moment mapping
+- "Why not a simpler model?" -- justify each ingredient with data patterns
+- "Sensitivity to functional form?" -- matching function, productivity process, costs
+- "General equilibrium effects?" -- partial vs general equilibrium for counterfactuals
+- "Computational robustness" -- multiple starting points, convergence diagnostics
+- "External validity of German institutions" -- transferability outside Germany
+- "Why these moments?" -- moment selection must be motivated
+- "Non-targeted moment fit" -- over-identification or at minimum reporting
 
 ---
 
 ## Quality Tolerance Thresholds
 
-<!-- Customize for your domain's standards. Used by quality-gates.md. -->
-
 | Quantity | Tolerance | Rationale |
 |----------|-----------|-----------|
-| Point estimates | [e.g., 1e-6] | [Numerical precision] |
-| Standard errors | [e.g., 1e-4] | [MC variability] |
-| Coverage rates | [e.g., ± 0.01] | [Simulation with B reps] |
+| VFI convergence | 1e-8 | Standard |
+| Moment fit | < 10% deviation | Targeted moments |
+| Simulation SE | Report across seeds | Monte Carlo variation |
