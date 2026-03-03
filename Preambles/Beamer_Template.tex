@@ -1,0 +1,162 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% Template based on Matthias Vogelsang's METROPOLIS package
+% Run with XeLaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\UseRawInputEncoding
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES, THEMES AND OWN COMMANDS
+%----------------------------------------------------------------------------------------
+\documentclass[unknownkeysallowed,xcolor=dvipsnames,aspectratio=169,compress]{beamer}
+
+\definecolor{EUIBlue}{RGB}{28,107,184}
+\definecolor{EUIOrange}{RGB}{227,148,71}
+\definecolor{EUIGreen}{RGB}{194,234,189}
+\definecolor{EUICarolina}{RGB}{126,178,221}
+
+\useoutertheme[progressbar=frametitle,numbering=fraction]{metropolis}
+\useinnertheme{metropolis}
+\usefonttheme{metropolis}
+\usecolortheme[named=EUIBlue]{structure} % allows the use of standard beamer colour themes
+
+\setbeamercolor{alerted text}{fg = EUIOrange} % changes alert colour to opposite of EUIBlue
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Font settings
+% Requires the Fira Sans family: https://fonts.google.com/specimen/Fira+Sans
+
+\usepackage{arevmath}
+\setsansfont[
+  BoldFont={Fira Sans SemiBold},
+  ItalicFont={Fira Sans Italic},
+  BoldItalicFont={Fira Sans SemiBold Italic}
+]{Fira Sans}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx} 
+\usepackage{booktabs} 
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{diagbox}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{appendixnumberbeamer}
+\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\plim}{plim}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\mrmd}{\mathrm d}
+\newcommand{\mrmD}{\mathrm D}
+\newcommand{\tinT}{t \in \mathcal{T}}
+\newcommand{\tinoN}{t \in \N \cup \{0\}}
+\DeclareMathOperator*{\var}{var}
+\DeclareMathOperator*{\cov}{cov}
+\DeclareMathOperator*{\bias}{bias}
+\DeclareMathOperator*{\Avar}{Avar}
+\DeclareMathOperator*{\supp}{supp}
+\DeclareMathOperator*{\adj}{adj}
+\DeclareMathOperator*{\tr}{tr}
+
+\newcommand{\pd}[2]{
+\frac{\partial{#1}}{\partial{#2}}
+}
+
+\newcommand{\pdd}[2]{
+\frac{\partial^{2}{#1}}{\partial{#2}^{2}}
+}
+
+\newcommand{\td}[2]{
+\frac{\mrmd {#1}}{\mrmd {#2}}
+}
+
+\newcommand{\tdd}[2]{
+\frac{\mrmd^{2} {#1}}{\mrmd {#2}^{2}}
+}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Presentation title}
+\subtitle{Presentation subtitle}
+
+\author{Fleming Zimbalski\inst{$\dagger$}} % Your name
+\institute{
+\inst{$\dagger$}%
+European University Institute % Your institution for the title page
+}
+\date{
+Place \\
+\today
+} % Date, can be changed to a custom date
+
+\begin{document}
+\begin{frame}[noframenumbering] % Option noframenumbering skips this slide
+\titlepage % Print the title page as the first slide
+\thispagestyle{empty} % Hides page counter
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Agenda} % Table of contents slide, comment this block out to remove it
+%\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+%\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+\begin{itemize}
+\item Bla
+\item Blablabla
+\begin{itemize}
+\item Bla?
+\end{itemize}
+\item \alert{BLA!}
+\item \textcolor{EUIGreen}{BLA!!}
+\item \textcolor{EUICarolina}{BLA!!!}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Blabla 1}
+
+\begin{frame}
+\frametitle{Blablabla}
+
+\end{frame}
+
+%------------------------------------------------
+
+
+%------------------------------------------------
+% APPENDIX
+%------------------------------------------------
+\appendix
+\begin{frame}[standout]
+\LARGE{\centerline{Thank you for your attention}}
+\end{frame}
+
+% Insert References and Appendix here
+
+%------------------------------------------------
+
+\end{document}

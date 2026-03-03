@@ -26,7 +26,7 @@
 /submit → Final Gate (score >= 95, all components >= 80)
 ```
 
-Enter at any stage. Use `/new-project` for the full pipeline.
+Enter at any stage. Use `/new-project` for the full pipeline. Additionally, use `/onboard` if the user points to new onboarding_material.
 
 ---
 

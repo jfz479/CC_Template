@@ -25,7 +25,7 @@
 [YOUR-PROJECT]/
 ├── CLAUDE.MD                    # This file
 ├── .claude/                     # Rules, skills, agents, hooks
-├── Bibliography_base.bib        # Centralized bibliography
+├── Bibliography_base.bib        # Centralised bibliography
 ├── Paper/                       # Main LaTeX manuscript (source of truth)
 │   ├── main.tex                 # Primary paper file
 │   ├── paper.sty                # Custom style file
@@ -65,6 +65,7 @@
 ├── Preambles/                   # Shared LaTeX preambles + Beamer theme
 ├── quality_reports/
 ├── explorations/
+├── onboarding_material		 # Source of material if project was started elsewhere
 └── master_supporting_docs/
 ```
 
@@ -99,6 +100,7 @@ cd Model && julia --project=. scripts/run_estimation.jl
 | `/new-project [topic]` | Full pipeline: idea → paper (orchestrated) |
 | `/interview-me [topic]` | Interactive research interview → spec + domain profile |
 | `/lit-review [topic]` | Librarian + Editor: literature search + synthesis |
+| `/onboard [stage]` | Migrate existing work into template pipeline
 | `/identify [question]` | Strategist + Structural Modeler: model design |
 | `/structural-estimation` | End-to-end estimation workflow guidance |
 | `/data-analysis [dataset]` | Coder + Debugger: empirical moments, data work |

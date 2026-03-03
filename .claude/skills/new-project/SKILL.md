@@ -8,7 +8,7 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Edit", "Bash", "Task", "WebSea
 
 # New Project
 
-Launch a full research pipeline from idea to paper, orchestrated through the dependency graph.
+Launch a full research pipeline from idea to paper, orchestrated through the dependency graph. If you have existing work, use /onboard first, then enter the pipeline at the appropriate stage.
 
 **Input:** `$ARGUMENTS` — a research topic or `interactive` for a guided start via `/interview-me`.
 
