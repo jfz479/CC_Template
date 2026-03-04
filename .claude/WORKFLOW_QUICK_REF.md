@@ -43,8 +43,7 @@ Enter at any stage. Use `/new-project` for the full pipeline. Additionally, use 
 | Command | Agents | What It Does |
 |---------|--------|-------------|
 | `/find-data [question]` | Explorer + Surveyor | Data discovery + quality assessment |
-| `/identify [question]` | Strategist + Econometrician | Design identification strategy |
-| `/pre-analysis-plan [spec]` | Strategist | Draft PAP (AEA/OSF/EGAP) |
+| `/identify [question]` | Strategist + Structural Modeler | Design model + estimation strategy |
 
 ### Analysis & Writing
 | Command | Agents | What It Does |

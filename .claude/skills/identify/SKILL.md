@@ -1,7 +1,6 @@
 ---
 name: identify
 description: Design model design strategy by dispatching the Strategist agent (proposer) and structural-modeler agent (critic). Produces strategy memo, pseudo-code, robustness plan, and falsification tests. Use when asked to "design the strategy" or "write the strategy memo".
-disable-model-invocation: true
 argument-hint: "[research question or research-spec file path]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 ---
@@ -78,11 +77,11 @@ If unresolved after 3 rounds: escalate to user with both perspectives.
 ```markdown
 # Model Strategy: [Topic]
 **Date:** [YYYY-MM-DD]
-**Design:** [DiD / IV / RDD / SC / Event Study]
-**Estimand:** [ATT / ATE / LATE]
+**Model class:** [Search-and-matching / Firm dynamics / HA / ...]
+**Estimation method:** [SMM / GMM / Calibration / None].
 
 ## Strategy Summary
-[2-3 sentence description of the identification strategy]
+[2-3 sentence description of the model strategy]
 
 ## Key Assumptions
 1. [Assumption 1] — [how it will be defended]
