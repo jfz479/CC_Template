@@ -124,6 +124,8 @@ Set threads per worker via: `addprocs(n, exeflags="--threads=8")`.
 - `snake_case` functions/variables; `PascalCase` types/modules
 - Verb-noun: `compute_value!`, `simulate_panel`, `build_grid`
 - `!` suffix for mutating functions; `UPPER_SNAKE_CASE` constants
+- Unicode Greek letters are fine: `θ`, `δ`, `η`, `σ`, `α`, `β`
+- **Never use Unicode subscripts** (e.g., `₀`, `₁`, `ₙ`). Use underscores: `θ_0` not `θ₀`, `ξ_0` not `ξ₀`, `V_new` not `Vₙₑᵥ`
 
 ## 5. Value Function Iteration
 - Pre-allocated arrays for value/policy functions
