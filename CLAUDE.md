@@ -13,7 +13,7 @@
 - **Plan first** -- enter plan mode before non-trivial tasks; save plans to `quality_reports/plans/`
 - **Verify after** -- compile and confirm output at the end of every task
 - **Single source of truth** -- Paper `main.tex` is authoritative; talks and supplements derive from it
-- **Quality gates** -- weighted aggregate score; nothing ships below 80/100; see `scoring-protocol.md`
+- **Quality gates** -- weighted aggregate score; nothing ships below 80/100; see `quality.md`
 - **Worker-critic pairs** -- every creator has a paired critic; critics never edit files
 - **[LEARN] tags** -- when corrected, save `[LEARN:category] wrong → right` to MEMORY.md
 
@@ -95,27 +95,40 @@ cd Model && julia --project=. scripts/run_estimation.jl
 
 ## Skills Quick Reference
 
+### Consolidated Skills (v3.0 — sub-modes reduce token load ~60%)
+
+| Command | What It Does |
+|---------|-------------|
+| `/discover interview [topic]` | Interactive research interview → spec + domain profile |
+| `/discover literature [topic]` | Librarian + Editor: literature search + synthesis |
+| `/discover data [question]` | Explorer + Surveyor: dataset discovery + assessment |
+| `/discover ideation [topic]` | Generate research questions + strategies |
+| `/review --paper [file]` | Multi-agent parallel review + weighted score |
+| `/review --peer [journal]` | Domain + Methods Referee + Editor: simulated peer review |
+| `/review --proofread [file]` | Proofreader: 6-category manuscript review |
+| `/review --code [file]` | Debugger: Julia/Stata code quality review |
+| `/review --visual [file]` | Slide layout audit |
+| `/review --replicate [dir]` | Verifier: replication package check |
+| `/review --all` | Full review pipeline |
+| `/tools compile [file]` | Paper: latexmk; Talks: 3-pass XeLaTeX + bibtex |
+| `/tools validate-bib` | Cross-reference citations |
+| `/tools commit [msg]` | Stage, commit, PR, merge |
+
+### Standalone Skills
+
 | Command | What It Does |
 |---------|-------------|
 | `/new-project [topic]` | Full pipeline: idea → paper (orchestrated) |
-| `/interview-me [topic]` | Interactive research interview → spec + domain profile |
-| `/lit-review [topic]` | Librarian + Editor: literature search + synthesis |
-| `/onboard [stage]` | Migrate existing work into template pipeline
+| `/onboard [stage]` | Migrate existing work into template pipeline |
 | `/identify [question]` | Strategist + Structural Modeler: model design |
 | `/structural-estimation` | End-to-end estimation workflow guidance |
 | `/data-analysis [dataset]` | Coder + Debugger: empirical moments, data work |
 | `/draft-paper [section]` | Writer: draft paper sections + humanizer pass |
-| `/model-check [file]` | Structural Modeler: model audit |
-| `/review-julia [file]` | Debugger: Julia code quality review |
-| `/proofread [file]` | Proofreader: 6-category manuscript review |
-| `/paper-excellence [file]` | Multi-agent parallel review + weighted score |
-| `/review-paper [file]` | 2 Referees + Editor: simulated peer review |
 | `/target-journal [paper]` | Editor: journal targeting + submission strategy |
+| `/respond-to-referee [report]` | Point-by-point referee response |
 | `/create-talk [format]` | Storyteller + Discussant: Beamer talk from paper |
 | `/humanizer [file]` | Strip 24 AI writing patterns |
-| `/compile-latex [file]` | Paper: latexmk; Talks: 3-pass XeLaTeX + bibtex |
-| `/validate-bib` | Cross-reference citations |
-| `/commit [msg]` | Stage, commit, PR, merge |
+| `/submit [journal]` | Final gate: score >= 95, all components >= 80 |
 
 ---
 

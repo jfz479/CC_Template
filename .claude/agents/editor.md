@@ -67,7 +67,11 @@ Review the paper, results, strategy, and literature landscape. Produce a **ranke
 - Desk rejection risk
 
 ### Step 2: Assign Referees
-For the top journal, assign **2 blind referees** (Referee agent, invoked twice independently). Neither sees the other's report.
+For the top journal, assign **2 blind referees** with different foci:
+- **Domain Referee** (subagent_type: domain-referee) — contribution, literature, data, institutional context, policy relevance
+- **Methods Referee** (subagent_type: methods-referee) — identification, model specification, computation, robustness, replication
+
+Read `.claude/references/journal-profiles.md` to calibrate referee dispositions to the target journal. Neither referee sees the other's report.
 
 ### Step 3: Editorial Decision
 Read both referee reports. Decide:

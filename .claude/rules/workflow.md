@@ -1,0 +1,157 @@
+# Workflow Protocol
+
+Consolidates: plan-first workflow, orchestrator protocol, dependency graph, standalone access, single source of truth.
+
+---
+
+## Plan-First Workflow
+
+**For any non-trivial task, enter plan mode before writing code.**
+
+1. **Enter Plan Mode** — use `EnterPlanMode`
+2. **Check MEMORY.md** — read any `[LEARN]` entries relevant to this task
+3. **Requirements Specification** (for complex/ambiguous tasks — skip for clear, single-file edits):
+   - Use AskUserQuestion to clarify ambiguities (max 3-5 questions)
+   - Create `quality_reports/specs/YYYY-MM-DD_description.md` using `templates/requirements-spec.md`
+   - Mark requirements: **MUST** / **SHOULD** / **MAY**
+   - Declare clarity: **CLEAR** / **ASSUMED** / **BLOCKED**
+   - Get user approval on spec
+4. **Draft the plan** — what changes, which files, in what order
+5. **Save to disk** — `quality_reports/plans/YYYY-MM-DD_short-description.md`
+6. **Present to user** — wait for approval
+7. **Exit plan mode** — only after approval
+8. **Save initial session log** — capture goal and key context while fresh
+9. **Implement via orchestrator** — see below
+
+---
+
+## Orchestrator Protocol
+
+**After a plan is approved, the orchestrator takes over autonomously.**
+
+### The Dependency-Driven Loop
+
+```
+Plan approved → orchestrator activates
+  │
+  Step 1: IDENTIFY — Check dependency graph, determine which phases can activate
+  Step 2: DISPATCH — Launch worker agents (parallel when independent)
+           Each worker paired with its critic
+  Step 3: REVIEW — Critic evaluates worker output, produces score
+           If score < 80 → worker fixes → critic re-reviews (max 3 rounds)
+           If 3 rounds fail → ESCALATE (see agents.md)
+  Step 4: VERIFY — Compile, render, run code, check outputs
+           If verification fails → fix → re-verify (max 2 attempts)
+  Step 5: SCORE — Aggregate scores across components (see quality.md)
+  │
+  └── Score >= threshold?
+        YES → Present summary to user
+        NO  → Identify blocking components, loop back to Step 2
+              After max 5 overall rounds → present with remaining issues
+```
+
+### Agent Dispatch Rules
+
+| Task Involves | Agents Dispatched |
+|--------------|-------------------|
+| Literature/references | Librarian + Editor |
+| Data sourcing | Explorer + Surveyor |
+| Model/identification strategy | Strategist + Structural Modeler |
+| Julia/Stata/R scripts | Coder + Debugger |
+| Paper manuscript | Writer + Proofreader |
+| Peer review | Editor → Domain Referee + Methods Referee |
+| Beamer talks | Storyteller + Discussant |
+| Replication package | Verifier (submission mode) |
+| Compilation only | Verifier (standard mode) |
+
+### Parallel Dispatch
+
+Independent phases run concurrently:
+- Literature and Data discovery run in parallel
+- Code and Paper execution run in parallel (after Strategy)
+- Presentation can run parallel with Peer Review
+
+### Simplified Mode (Explorations)
+
+For standalone scripts and explorations: `Plan → implement → run → check → score → done`. No multi-agent reviews. Quality >= 60 for explorations, >= 80 for production.
+
+### "Just Do It" Mode
+
+When user says "just do it" / "handle it": skip final approval pause, auto-commit if score >= 80, still run full verify-review-fix loop.
+
+---
+
+## Dependency Graph
+
+**Phases activate by dependency, not sequence. Research is not a waterfall.**
+
+| Phase | Requires | Can Re-enter? |
+|-------|----------|---------------|
+| Discovery | Research idea | Always — Librarian is persistent |
+| Strategy | At least one of: literature review OR data assessment | Yes — new data/literature can trigger re-strategy |
+| Execution (Code) | Approved strategy (Structural Modeler >= 80) | Yes — strategy revision triggers re-coding |
+| Execution (Write) | Approved code (Debugger >= 80) | Yes — new results trigger rewriting |
+| Peer Review | Approved paper (Proofreader >= 80) + approved code | Yes — major revisions loop back |
+| Submission | Editor accepts + Verifier PASS + overall >= 95 | No — terminal |
+| Presentation | Approved paper (can run parallel with Peer Review) | Yes — paper revisions trigger talk updates |
+
+**Enter at any stage.** If dependencies are already met, skip earlier phases. Example: you have data and a draft paper → enter at Peer Review.
+
+---
+
+## Standalone Access
+
+**Any skill can be invoked directly, bypassing the pipeline.**
+
+- **Pipeline mode:** Orchestrator manages the flow through the dependency graph
+- **Standalone mode:** User invokes a skill directly (e.g., `/review --code Model/src/vfi.jl`)
+
+All skills work standalone. Only `/new-project` is always orchestrated.
+
+---
+
+## Single Source of Truth
+
+**Paper/main.tex is authoritative. Everything else is derived.**
+
+```
+Paper/main.tex (SOURCE OF TRUTH)
+  ├── Talks/*.tex (derived — seminar, job market, short, lightning)
+  ├── Supplementary/*.tex (derived — online appendix)
+  ├── Figures/ (generated by scripts, referenced by paper)
+  ├── Tables/ (generated by scripts, referenced by paper)
+  ├── Bibliography_base.bib (shared)
+  └── Replication/ (deposit package, assembled from scripts + data)
+```
+
+- NEVER edit derived artifacts independently
+- ALWAYS propagate changes from paper → talks
+- Figures/tables in talks MUST match paper versions exactly
+- Notation in talks MUST match paper notation
+
+### Content Fidelity Checklist (Paper → Talk)
+
+- [ ] All results in talk appear in paper (no talk-only results)
+- [ ] Effect sizes match exactly
+- [ ] Standard errors / confidence intervals match
+- [ ] Notation is consistent
+- [ ] Citations in talk are a subset of paper citations
+- [ ] Figures are identical (same script output)
+
+---
+
+## Context Management
+
+### Before Auto-Compression
+
+Ensure: (1) MEMORY.md has all [LEARN] entries, (2) Session log current (last 10 min), (3) Active plan saved to disk, (4) Open questions documented.
+
+### After Compression
+
+First message: "Resuming after compression. Last task: [read most recent plan + git log]. Status: [next step]."
+
+### Session Recovery (New Session)
+
+1. Read `CLAUDE.md` + most recent plan in `quality_reports/plans/`
+2. Check `git log --oneline -10` and `git diff`
+3. State current understanding of the task

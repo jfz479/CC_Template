@@ -7,60 +7,61 @@
 ## The Research Pipeline
 
 ```
-/interview-me → Research Spec + Domain Profile
+/discover interview → Research Spec + Domain Profile
     ↓
-/lit-review → Literature Synthesis (Librarian + Editor)
+/discover literature → Literature Synthesis (Librarian + Editor)
     ↓
-/find-data → Data Assessment (Explorer + Surveyor)
+/discover data → Data Assessment (Explorer + Surveyor)
     ↓
-/identify → Strategy Memo (Strategist + structural-modeler)
+/identify → Strategy Memo (Strategist + Structural Modeler)
     ↓
 /data-analysis → Scripts + Output (Coder + Debugger)
     ↓
 /draft-paper → Paper Sections (Writer + Humanizer)
     ↓
-/paper-excellence → Weighted Score (4 agents parallel)
+/review --paper → Weighted Score (4 agents parallel)
     ↓
-/review-paper → Peer Review (2 Referees + Editor)
+/review --peer [journal] → Peer Review (Domain + Methods Referee + Editor)
     ↓
 /submit → Final Gate (score >= 95, all components >= 80)
 ```
 
-Enter at any stage. Use `/new-project` for the full pipeline. Additionally, use `/onboard` if the user points to new onboarding_material.
+Enter at any stage. Use `/new-project` for the full pipeline. Use `/onboard` if the user points to new onboarding_material.
 
 ---
 
 ## Key Skills by Research Stage
 
-### Ideation & Literature
+### Discovery
 | Command | Agents | What It Does |
 |---------|--------|-------------|
-| `/interview-me [topic]` | — | Interactive Q&A → research spec + domain profile |
-| `/lit-review [topic]` | Librarian + Editor | Literature search + synthesis |
-| `/research-ideation [topic]` | — | Research questions + strategies |
+| `/discover interview [topic]` | — | Interactive Q&A → research spec + domain profile |
+| `/discover literature [topic]` | Librarian + Editor | Literature search + synthesis |
+| `/discover data [question]` | Explorer + Surveyor | Data discovery + quality assessment |
+| `/discover ideation [topic]` | — | Research questions + strategies |
 
-### Data & Strategy
+### Strategy
 | Command | Agents | What It Does |
 |---------|--------|-------------|
-| `/find-data [question]` | Explorer + Surveyor | Data discovery + quality assessment |
 | `/identify [question]` | Strategist + Structural Modeler | Design model + estimation strategy |
+| `/structural-estimation` | — | SMM estimation workflow guidance |
 
-### Analysis & Writing
+### Execution
 | Command | Agents | What It Does |
 |---------|--------|-------------|
 | `/data-analysis [dataset]` | Coder + Debugger | End-to-end analysis + code review |
 | `/draft-paper [section]` | Writer | Paper sections + humanizer pass |
-| `/compile-latex [file]` | — | 3-pass XeLaTeX + bibtex |
+| `/tools compile [file]` | — | Paper: latexmk; Talks: 3-pass XeLaTeX + bibtex |
 
 ### Quality & Review
 | Command | Agents | What It Does |
 |---------|--------|-------------|
-| `/model-check [file]` | structural-modeler | 4-phase causal inference audit |
-| `/review-julia [file]` | Debugger | Code quality review (standalone) |
-| `/proofread [file]` | Proofreader | 6-category manuscript review |
-| `/paper-excellence [file]` | 4 parallel | Multi-agent review + weighted score |
-| `/review-paper [file]` | 2 Referees + Editor | Simulated peer review |
-| `/validate-bib` | — | Cross-reference citations |
+| `/review --paper [file]` | 4 parallel | Multi-agent review + weighted score |
+| `/review --peer [journal]` | Domain + Methods Referee + Editor | Journal-calibrated peer review |
+| `/review --proofread [file]` | Proofreader | 6-category manuscript review |
+| `/review --code [file]` | Debugger | Julia/Stata code quality (standalone) |
+| `/review --visual [file]` | — | Slide layout audit |
+| `/tools validate-bib` | — | Cross-reference citations |
 
 ### Submission & Deposit
 | Command | Agents | What It Does |
@@ -68,19 +69,19 @@ Enter at any stage. Use `/new-project` for the full pipeline. Additionally, use 
 | `/target-journal [paper]` | Editor | Journal targeting + strategy |
 | `/respond-to-referee [report]` | Writer + routing | Point-by-point response |
 | `/data-deposit` | Coder + Verifier | AEA replication package |
-| `/audit-replication [dir]` | Verifier | 10-check submission audit |
+| `/review --replicate [dir]` | Verifier | Replication package check |
 | `/submit [journal]` | Verifier + scoring | Final gate (score >= 95) |
 
 ### Presentations
 | Command | Agents | What It Does |
 |---------|--------|-------------|
 | `/create-talk [format]` | Storyteller + Discussant | Beamer talk (4 formats) |
-| `/visual-audit [file]` | — | Slide layout audit |
+| `/review --visual [file]` | — | Slide layout audit |
 
 ### Infrastructure
 | Command | What It Does |
 |---------|-------------|
-| `/commit [msg]` | Stage, commit, PR, merge |
+| `/tools commit [msg]` | Stage, commit, PR, merge |
 | `/humanizer [file]` | Strip 24 AI writing patterns |
 | `/journal` | Research journal timeline |
 | `/context-status` | Session health + context usage |
@@ -97,16 +98,30 @@ Enter at any stage. Use `/new-project` for the full pipeline. Additionally, use 
 | >= 90 | PR | Ready to submit (minor polish recommended) |
 | >= 80 | Commit | Ready to commit (address major issues before submission) |
 | < 80 | **Blocked** | Must fix critical/major issues |
+| >= 60 | Exploration | Acceptable for `explorations/` work |
 | -- | Advisory | Talks: reported only, non-blocking |
 
 Weighted aggregate: Literature 10% + Data 10% + Identification 25% + Code 15% + Paper 25% + Polish 10% + Replication 5%
 
 ---
 
+## On-Demand References
+
+These files live in `.claude/references/` and load only when agents need them (not every session):
+
+| File | Loaded By | Content |
+|------|-----------|---------|
+| `domain-profile.md` | Librarian, Editor, Referees | Field, journals, data, conventions |
+| `journal-profiles.md` | Editor, Referees | 20 journal profiles + referee dispositions |
+| `table-standards.md` | Coder, Writer | Publication-quality table formatting |
+| `working-paper-format.md` | Writer, Proofreader | Paper.sty conventions codified |
+
+---
+
 ## I Ask You When
 
 - **Design forks:** "Option A vs. Option B. Which?"
-- **Solution algorithm choice:** "VFI, PFI, Colloation or different method for this setting?"
+- **Solution algorithm choice:** "VFI, PFI, Collocation or different method for this setting?"
 - **Disagreement with referee:** "DISAGREE classification — please review"
 - **After 3 strikes:** "Coder and Debugger can't agree — your call"
 
